@@ -1,4 +1,4 @@
-# Brewslee Derby Scoreboard
+# ARD Scoreboard
 
 This is a WFTDA Roller Derby scoreboard app made with Vue 3.
 
