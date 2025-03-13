@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from 'vue';
+  import gameScript from '../scripts/game-engine.ts';
   
-  let worker = null;
-  let channel = null;
-  const seconds = ref(0);
+  let worker: Worker;
+  let channel: BroadcastChannel;
 
-  function openBoard() {
+  function openBoard(): void {
     window.open('/board', '_blank');
   }
 
@@ -13,11 +13,12 @@
     channel = new BroadcastChannel('game');
 
     if (window.Worker) {
-      worker = new Worker(new URL('../scripts/game.js', import.meta.url));
+      worker = new Worker(gameScript);
       worker.onmessage = (e) => {
-        seconds.value = e.data;
-        channel.postMessage(seconds.value);
+        channel.postMessage(e.data);
       };
+
+      worker.postMessage('get_game')
     }
   });
 
