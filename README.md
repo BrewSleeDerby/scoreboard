@@ -1,33 +1,53 @@
-# scoreboard
+# Brewslee Derby Scoreboard
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a WFTDA Roller Derby scoreboard app made with Vue 3.
 
-## Recommended IDE Setup
+## Installation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+To install dependencies, run the following command:
 
 ```sh
+cd app
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Running Development instance
+
+To run the app locally, use the following command:
 
 ```sh
+cd app
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+This will start the development server, and you can view the app in your browser.
+
+## Building with Docker
+
+To build the Docker image, use the following command:
 
 ```sh
-npm run build
+docker build .
 ```
+
+## Running with Docker
+
+To run the official Docker image, use the following command:
+
+```sh
+docker run -d -P brewsleederby/scoreboard
+```
+
+You can also pull the image from the Docker registry:
+
+```sh
+docker pull brewsleederby/scoreboard
+```
+
+For more information, visit the Docker registry: [Brewslee Derby Scoreboard on Docker Hub](https://hub.docker.com/repository/docker/brewsleederby/scoreboard/general)
+
+## Contributing
+
+Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
+
+Thank you for contributing!
