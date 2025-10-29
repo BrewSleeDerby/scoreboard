@@ -1,11 +1,23 @@
 <script setup lang="ts">
   import { onMounted, onUnmounted, Ref, ref } from 'vue'; 
   import { Game } from '../types/game';
+  import { Team } from '../types/team';
   import { Position, Skater } from '../types/skater';
+  import { GameStatus, JamClock, JamPoints, PeriodClock, TeamInfo, TeamOfficialReviews, TeamPoints, TeamTimemouts } from '../components/score';
 
   let channel: BroadcastChannel;
   let seconds: Ref<number> = ref(0);
   const game: Ref<Game | null> = ref(null);
+  const teamA: Ref<Team> = ref({
+    Name: 'Team A',
+    Color: 'purple',
+    Logo: 'team-a.png'
+  });
+  const teamB: Ref<Team> = ref({
+    Name: 'Team B',
+    Color: 'green',
+    Logo: null
+  });
 
   function getSkaters(skaters: Skater[]): Skater[] {
     return sortSkaters(getSkatersByPosition(skaters, Position.Jammer)).concat(getSkatersByPosition(skaters, Position.Blocker));
@@ -33,18 +45,32 @@
 
 <template>
   <div>
-    <h1>Board</h1>
-    <p v-if="game">
-      Status: {{ game.Status }}
-    </p>
-    <p v-if="game">
-      Away Jammer:
-      <select name="awayjammer" id="awayjammer">
-        <option v-for="skater in getSkaters(game.AwaySkaters)" :key="skater.Number">{{ skater.Number }} | {{ skater.Name }}</option>
-      </select>
-    </p>
+    <TeamInfo :team="teamA" />
+    <TeamInfo :team="teamB" />
+  </div>
+  <div>
+    <TeamPoints :team="teamA" :score=333 />
+    <JamPoints :points=11 />
+    <JamPoints :points=22 />
+    <TeamPoints :team="teamB" :score="555" />
+  </div>
+  <div>
+    <TeamTimemouts />
+    <TeamOfficialReviews />
+    <TeamOfficialReviews />
+    <TeamTimemouts />
+  </div>
+  <div>
+    <PeriodClock />
+    <GameStatus />
+    <JamClock />
   </div>
 </template>
 
-<style>
+<style scoped>
+  div {
+    display: flex;
+    place-items: center;
+    justify-content: space-around;
+  }
 </style>

@@ -51,3 +51,11 @@ For more information, visit the Docker registry: [Brewslee Derby Scoreboard on D
 Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
 
 Thank you for contributing!
+
+
+## Credits
+
+Big thanks to these people who helped me in the creation process:
+
+- Thor
+- Thunder Bunny
