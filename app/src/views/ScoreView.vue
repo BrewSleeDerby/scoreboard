@@ -3,7 +3,7 @@
   import { Game } from '../types/game';
   import { Team } from '../types/team';
   import { Position, Skater } from '../types/skater';
-  import { GameStatus, JamClock, JamPoints, PeriodClock, TeamInfo, TeamOfficialReviews, TeamPoints, TeamTimemouts } from '../components/score';
+  import { GameStatus, JamClock, JamPoints, PeriodClock, TeamInfo, TeamOfficialReviews, TeamPoints, TeamTimeouts } from '../components/score';
 
   let channel: BroadcastChannel;
   let seconds: Ref<number> = ref(0);
@@ -55,10 +55,10 @@
     <TeamPoints :team="teamB" :score="555" />
   </div>
   <div>
-    <TeamTimemouts />
+    <TeamTimeouts />
     <TeamOfficialReviews />
     <TeamOfficialReviews />
-    <TeamTimemouts />
+    <TeamTimeouts />
   </div>
   <div>
     <PeriodClock />
