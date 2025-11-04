@@ -49,9 +49,9 @@
     <TeamInfo :team="teamB" />
   </div>
   <div>
-    <TeamPoints :team="teamA" :score=333 />
-    <JamPoints :points=11 />
-    <JamPoints :points=22 />
+    <TeamPoints :team="teamA" :score="333" />
+    <JamPoints :points="11" />
+    <JamPoints :points="22" />
     <TeamPoints :team="teamB" :score="555" />
   </div>
   <div>

@@ -5,7 +5,7 @@ import PeriodClock from './PeriodClock.vue';
 import TeamInfo from './TeamInfo.vue';
 import TeamOfficialReviews from './TeamOfficialReviews.vue';
 import TeamPoints from './TeamPoints.vue';
-import TeamTimemouts from './TeamTimemouts.vue';
+import TeamTimeouts from './TeamTimeouts.vue';
 
 export {
     GameStatus,
@@ -15,5 +15,5 @@ export {
     TeamInfo,
     TeamOfficialReviews,
     TeamPoints,
-    TeamTimemouts,
+    TeamTimeouts,
 }
