@@ -24,9 +24,9 @@ const router = createRouter({
   ],
 })
 
-const DEFAULT_TITLE = 'ARD Scoreboard';
+const DEFAULT_TITLE: string = 'ARD Scoreboard';
 router.beforeEach((to) => {
-  document.title = to.meta.title || DEFAULT_TITLE;
+  document.title = (<string | undefined>to.meta.title) || DEFAULT_TITLE;
 });
 
 export default router
