@@ -3,7 +3,7 @@ import type { Game } from '@/types/game';
 import { GameStatus } from '@/types/game';
 import { Position } from '@/types/skater';
 
-const CHANNEL_NAME = 'game'
+const CHANNEL_NAME = 'game';
 
 export const useGameStore = defineStore('game', {
   state: (): Game => ({
@@ -18,7 +18,7 @@ export const useGameStore = defineStore('game', {
     ],
     AwayTeam: {
       Color: 'black',
-      Logo: '',
+      Logo: null,
       Name: 'Black'
     },
     HomeScore: 0,
@@ -32,7 +32,7 @@ export const useGameStore = defineStore('game', {
     ],
     HomeTeam: {
       Color: 'white',
-      Logo: '',
+      Logo: null,
       Name: 'White'
     },
     JamTime: 120,
@@ -53,72 +53,63 @@ export const useGameStore = defineStore('game', {
   actions: {
     // Score management
     incrementHomeScore(points: number) {
-      this.HomeScore += points
-      this.broadcastState()
+      this.HomeScore += points;
+      this.broadcastState();
     },
 
     incrementAwayScore(points: number) {
-      this.AwayScore += points
-      this.broadcastState()
+      this.AwayScore += points;
+      this.broadcastState();
     },
 
     resetScores() {
-      this.HomeScore = 0
-      this.AwayScore = 0
-      this.broadcastState()
+      this.HomeScore = 0;
+      this.AwayScore = 0;
+      this.broadcastState();
     },
 
     // Game status management
     startGame() {
-      this.Status = GameStatus.InProgress
-      this.broadcastState()
+      this.Status = GameStatus.InProgress;
+      this.broadcastState();
     },
 
     pauseGame() {
-      this.Status = GameStatus.Intermission
-      this.broadcastState()
+      this.Status = GameStatus.Intermission;
+      this.broadcastState();
     },
 
     endGame() {
-      this.Status = GameStatus.UnofficialFinal
-      this.broadcastState()
+      this.Status = GameStatus.UnofficialFinal;
+      this.broadcastState();
     },
 
     finalizeGame() {
-      this.Status = GameStatus.Final
-      this.broadcastState()
+      this.Status = GameStatus.Final;
+      this.broadcastState();
     },
 
     updateHomeTeam(name: string, color: string, logo: string | null) {
-      this.HomeTeam = { Name: name, Color: color, Logo: logo }
-      this.broadcastState()
+      this.HomeTeam = { Name: name, Color: color, Logo: logo };
+      this.broadcastState();
     },
 
     updateAwayTeam(name: string, color: string, logo: string | null) {
-      this.AwayTeam = { Name: name, Color: color, Logo: logo }
-      this.broadcastState()
+      this.AwayTeam = { Name: name, Color: color, Logo: logo };
+      this.broadcastState();
     },
 
     syncState(gameState: Game) {
-      this.$patch(gameState)
+      this.$patch(gameState);
     },
 
     // Broadcast state to other windows/tabs
     broadcastState() {
-      const channel = new BroadcastChannel(CHANNEL_NAME)
+      const channel = new BroadcastChannel(CHANNEL_NAME);
       // Use JSON serialization to create a clean copy
-      const plainState = JSON.parse(JSON.stringify(this.$state))
-      channel.postMessage(plainState)
-      channel.close()
+      const plainState = JSON.parse(JSON.stringify(this.$state));
+      channel.postMessage(plainState);
+      channel.close();
     },
-
-    // Initialize BroadcastChannel listener
-    initBroadcastListener() {
-      const channel = new BroadcastChannel(CHANNEL_NAME)
-      channel.onmessage = (event) => {
-        this.syncState(event.data)
-      }
-      return channel
-    }
   }
 })

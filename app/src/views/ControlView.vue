@@ -3,20 +3,10 @@
   import { useGameStore } from '@/stores/game';
   
   const gameStore = useGameStore();
-  let channel: BroadcastChannel;
 
   function openBoard(): void {
     window.open('/board', '_blank');
   }
-
-  onMounted(() => {
-    // Initialize broadcast channel to send updates to other windows
-    channel = new BroadcastChannel('game');
-  });
-
-  onUnmounted(() => {
-    channel.close();
-  });
 </script>
 
 <template>
