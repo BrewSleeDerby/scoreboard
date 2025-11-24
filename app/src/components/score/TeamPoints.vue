@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Team } from '../../types/team';
+  import type { Team } from '../../types/team';
 
   const props = defineProps<{
     score: number,
