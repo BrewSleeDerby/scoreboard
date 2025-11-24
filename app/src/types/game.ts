@@ -1,6 +1,6 @@
-import { Period } from "./period";
-import { Skater } from "./skater";
-import { Team } from "./team";
+import type { Period } from "@/types/period";
+import type { Skater } from "@/types/skater";
+import type { Team } from "@/types/team";
 
 export type Game = {
     AwayScore: number;

@@ -1,32 +1,20 @@
 <script setup lang="ts">
-  import { onMounted, onUnmounted, ref } from 'vue';
-  import gameScript from '../scripts/game-engine.ts';
+  import { onMounted, onUnmounted } from 'vue';
+  import { useGameStore } from '@/stores/game';
   
-  let worker: Worker;
+  const gameStore = useGameStore();
   let channel: BroadcastChannel;
-
-  const para = ref('parallelogram');
-  const flash = ref('flash');
 
   function openBoard(): void {
     window.open('/board', '_blank');
   }
 
   onMounted(() => {
+    // Initialize broadcast channel to send updates to other windows
     channel = new BroadcastChannel('game');
-
-    if (window.Worker) {
-      worker = new Worker(gameScript);
-      worker.onmessage = (e) => {
-        channel.postMessage(e.data);
-      };
-
-      worker.postMessage('get_game')
-    }
   });
 
   onUnmounted(() => {
-    worker.terminate();
     channel.close();
   });
 </script>
@@ -35,8 +23,8 @@
  <div>
     <h1>Control</h1>
     <button @click="openBoard">Open Board</button>
-    <!--<button @click="worker.postMessage('start')">Start</button>
-    <button @click="worker.postMessage('stop')">Stop</button>-->
+    <button @click="gameStore.resetScores()">Reset score</button>
+    <button @click="gameStore.incrementAwayScore(1)">Increment Away Score</button>
   </div>
 
     <!--<div :class="para"></div>

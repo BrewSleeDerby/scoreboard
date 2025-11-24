@@ -1,13 +1,14 @@
 <script setup lang="ts">
-  import { onMounted, onUnmounted, Ref, ref } from 'vue'; 
-  import { Game } from '../types/game';
-  import { Team } from '../types/team';
-  import { Position, Skater } from '../types/skater';
-  import { GameStatus, JamClock, JamPoints, PeriodClock, TeamInfo, TeamOfficialReviews, TeamPoints, TeamTimeouts } from '../components/score';
+  import { onMounted, onUnmounted, type Ref, ref } from 'vue'; 
+  import { useGameStore } from '@/stores/game';
+  import type { Team } from '@/types/team';
+  import { Position, type Skater } from '@/types/skater';
+  import { GameStatus, JamClock, JamPoints, PeriodClock, TeamInfo, TeamOfficialReviews, TeamPoints, TeamTimeouts } from '@/components/score';
 
+  const gameStore = useGameStore();
   let channel: BroadcastChannel;
+  
   let seconds: Ref<number> = ref(0);
-  const game: Ref<Game | null> = ref(null);
   const teamA: Ref<Team> = ref({
     Name: 'Team A',
     Color: 'purple',
@@ -32,9 +33,10 @@
   }
   
   onMounted(() => {
+    // Listen for game state updates from the control panel
     channel = new BroadcastChannel('game');
     channel.onmessage = (e) => {
-      game.value = e.data;
+      gameStore.syncState(e.data);
     };
   });
   
@@ -49,10 +51,10 @@
     <TeamInfo :team="teamB" />
   </div>
   <div>
-    <TeamPoints :team="teamA" :score="333" />
+    <TeamPoints :team="teamA" :score="gameStore.AwayScore" />
     <JamPoints :points="11" />
     <JamPoints :points="22" />
-    <TeamPoints :team="teamB" :score="555" />
+    <TeamPoints :team="teamB" :score="gameStore.HomeScore" />
   </div>
   <div>
     <TeamTimeouts />
