@@ -3,7 +3,7 @@ FROM node:25-alpine AS build
 USER node
 
 WORKDIR /app
-COPY / ./
+COPY . ./
 RUN npm ci --quiet
 RUN npm run build --quiet
 
