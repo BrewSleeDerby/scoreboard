@@ -3,11 +3,11 @@ FROM node:25-alpine AS build
 USER node
 
 WORKDIR /app
-COPY app/ ./
+COPY / ./
 RUN npm ci --quiet
 RUN npm run build --quiet
 
-FROM nginx:1.29.3-alpine
+FROM nginx:1.29.8-alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
