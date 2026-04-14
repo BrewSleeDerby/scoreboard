@@ -34,12 +34,6 @@ jobs:
           cache: npm
       - name: Setup Pages
         uses: actions/configure-pages@v6
-      - name: Restore cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
       - name: Build
