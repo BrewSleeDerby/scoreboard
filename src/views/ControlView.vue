@@ -5,7 +5,7 @@
   const gameStore = useGameStore();
 
   function openBoard(): void {
-    window.open('/board', '_blank');
+    window.open('board', '_blank');
   }
 </script>
 
