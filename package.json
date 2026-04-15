@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build-docker": "run-p type-check \"build-docker-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
+    "build-docker-only": "vite build --config vite.config.docker.ts",
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
