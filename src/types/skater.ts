@@ -1,7 +1,7 @@
 export type Skater = {
     Name: string;
     Number: string;
-    Position: string;
+    Position: Position;
 }
 
 export enum Position {

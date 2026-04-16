@@ -1,39 +1,41 @@
 <script setup lang="ts">
+  import { computed } from 'vue';
   import type { Team } from '../../types/team';
 
   const props = defineProps<{
     score: number,
     team: Team
   }>();
+
+    const normalizedColor = computed(() => props.team.Color.trim().toLowerCase());
+    const isWhiteTeam = computed(() => normalizedColor.value === 'white');
 </script>
 
 <template>
-    <div v-if="props.team.Color != 'white'" class="white-container">
+    <div class="score-shell" :class="{ 'white-container': !isWhiteTeam, white: isWhiteTeam }">
         <div class="color">
             <div class="background">
                 <span class="text">{{ props.score }}</span>
             </div>
         </div>
     </div>
-
-    <div v-if="props.team.Color == 'white'" class="white">
-            <div class="background">
-                <span class="text">{{ props.score }}</span>
-            </div>
-        </div>
 </template>
 
 <style scoped>
-    div.white-container {
-        border-radius: 2vh;
-        background-color: white;
+    div.score-shell {
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 2vh;
         width: 35vw;
         height: 40vh;
         padding: 5px 5px 5px 5px;
     }
+
+    div.white-container {
+        background-color: white;
+    }
+
     div.color {
         display: flex;
         justify-content: center;
@@ -45,17 +47,7 @@
         height: 100%;
         padding: 10px 10px 10px 10px;
     }
-    div.white {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 2vh;
-        background-color: v-bind('props.team.Color');
-        border: 2px solid black;
-        width: 35vw;
-        height: 40vh;
-        padding: 10px 10px 10px 10px;
-    }
+
     div.background {
         border: 2px solid black;
         border-radius: 2vh;
