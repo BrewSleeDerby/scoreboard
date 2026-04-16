@@ -110,13 +110,13 @@ export const useGameStore = defineStore('game', {
     },
 
     hydrateState() {
-      const rawState = window.localStorage.getItem(STORAGE_KEY);
-
-      if (!rawState) {
-        return;
-      }
-
       try {
+        const rawState = window.localStorage.getItem(STORAGE_KEY);
+
+        if (!rawState) {
+          return;
+        }
+
         this.$patch(JSON.parse(rawState) as Game);
       } catch {
         window.localStorage.removeItem(STORAGE_KEY);
