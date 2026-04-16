@@ -12,7 +12,7 @@
 </script>
 
 <template>
-    <div class="score-shell" :class="{ 'white-container': !isWhiteTeam, white: isWhiteTeam }">
+    <div class="score-shell" :class="{ 'white-container': !isWhiteTeam }">
         <div class="color">
             <div class="background">
                 <span class="text">{{ props.score }}</span>
