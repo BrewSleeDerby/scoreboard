@@ -124,7 +124,11 @@ export const useGameStore = defineStore('game', {
     },
 
     persistState() {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.$state));
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.$state));
+      } catch {
+        // Ignore storage quota/security failures so state updates and broadcasting still work.
+      }
     },
 
     // Broadcast state to other windows/tabs
