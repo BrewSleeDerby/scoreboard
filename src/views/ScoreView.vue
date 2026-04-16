@@ -16,7 +16,7 @@
   });
   const teamB: Ref<Team> = ref({
     Name: 'Team B',
-    Color: 'green',
+    Color: 'white',
     Logo: null
   });
 
@@ -33,6 +33,8 @@
   }
   
   onMounted(() => {
+    gameStore.hydrateState();
+
     // Listen for game state updates from the control panel
     channel = new BroadcastChannel('game');
     channel.onmessage = (e) => {
