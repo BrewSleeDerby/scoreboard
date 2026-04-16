@@ -4,6 +4,11 @@ import { GameStatus } from '@/types/game';
 import { Position } from '@/types/skater';
 
 const CHANNEL_NAME = 'game';
+const STORAGE_KEY = 'scoreboard.game';
+
+function cloneState(state: Game): Game {
+  return JSON.parse(JSON.stringify(state)) as Game;
+}
 
 export const useGameStore = defineStore('game', {
   state: (): Game => ({
@@ -101,14 +106,33 @@ export const useGameStore = defineStore('game', {
 
     syncState(gameState: Game) {
       this.$patch(gameState);
+      this.persistState();
+    },
+
+    hydrateState() {
+      const rawState = window.localStorage.getItem(STORAGE_KEY);
+
+      if (!rawState) {
+        return;
+      }
+
+      try {
+        this.$patch(JSON.parse(rawState) as Game);
+      } catch {
+        window.localStorage.removeItem(STORAGE_KEY);
+      }
+    },
+
+    persistState() {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.$state));
     },
 
     // Broadcast state to other windows/tabs
     broadcastState() {
+      this.persistState();
+
       const channel = new BroadcastChannel(CHANNEL_NAME);
-      // Use JSON serialization to create a clean copy
-      const plainState = JSON.parse(JSON.stringify(this.$state));
-      channel.postMessage(plainState);
+      channel.postMessage(cloneState(this.$state));
       channel.close();
     },
   }
